@@ -1,0 +1,164 @@
+key;es;en
+espanol;Español;Español
+serie;Serie de Tiempo;Time Series
+sdiff;Serie de Diferencias;Time Series of Differences
+code;Código;Code
+data;Datos;Data
+date;Fechas;Date
+cargar;Cargar;Load
+generar;Generar;Generate
+header;Nombre de Variables;Variables names 
+separador;Separador;Separator
+separadordec;Separador Decimal;Decimal Separator
+cargarchivo;Cargar Archivo;Load Archive
+subir;Subir;Upload
+selvalor;Seleccione la columna con los datos:;Select data column:
+selfecha;Seleccione la columna con las fechas:;Select date column:
+seltipo;Los datos vienen de forma:;The data comes:
+selrango;Indique el rango de fechas:;Indicate the date range:
+hasta;hasta;to
+sel;Seleccionar;Choose
+cre;Crear;Create
+anual;Anual;Yearly
+mes;Mensual;Monthly
+dia;Diaria;Daily
+dialab;Por días laborales;By business days
+semanal;Semanal;Weekly
+hora;Por hora;Hourly
+minuto;Por minuto;By minute
+segundo;Por segundo;By second
+selpatron;Seleccione el Patrón-Estacional:;Select Seasonal-Pattern:
+selmodel;Seleccione el modelo:;Select model:
+fecha;Fecha;Date
+valor;Valor;Value
+numerico;Númerico;Numeric
+categorico;Categórico;Categoric
+train;Entrenamiento;Train
+test;Prueba;Test
+opciones;Opciones;Options
+ejecutar;Generar Modelo;Generate Model
+basico;Análisis Exploratorio;Exploratory Analisys
+norm;Test de Normalidad;Normality Test
+plotnormal;Gráfico Normalidad;Normal Plot
+histograma;Histograma;Histogram
+curvanormal;Curva Normal;Normal Curve
+selcolbar;Seleccione el color de la barra:;Select bar color:
+selcolline;Seleccione el color de la linea:;Select line color:
+selcolpoint;Seleccione el color del punto:;Select point color:
+asimetria;Asimetría;Asymmetry
+normalidad;Test de Normalidad;Normality Test
+sigue;¿Sigue la normal?;is normally distributed?
+pvalue;P-valor (Shapiro);P-value (Shapiro)
+tasim;Valor del test;Test value
+t_c;Tendencia y Ciclicidad;Trend and Cyclicality
+tend;Tendencia;Trend
+colts;Seleccione el color de la Serie de Tiempo:;Select Time Series color:
+coltend;Seleccione el color de la Tendencia:;Select Trend color:
+colcicl;Seleccione el color de la Ciclicidad:;Select Cyclicality color:
+cicl;Ciclicidad;Cyclicality
+desc;Descomposición;Decomposition
+seas;Estacionalidad;Seasonal
+resi;Residual;Residual
+colseas;Seleccione el color de la Estacionalidad:;Select Seasonal color:
+colresi;Seleccione el color del Residual:;Select Residual color:
+peri;Periodograma;Periodogram
+selperi;Seleccione el Periodo:;Select the Period:
+selbest;Seleccione el número de periodo más importante:;Select the most important period number:
+colperi;Seleccione el color del Periodograma:;Select Periodogram color:
+colbest;Seleccione el color del mejor Periodo:;Select Best Period color:
+txtbest;º periodo más importante es ;º most important period is 
+txtfreq;Frecuencia;Frequency
+txtperi;Periodo;Period
+acercade;Acerca De;About
+idioma;Idioma;Language
+selidioma;Seleccionar Idioma:;Select Language
+sig;Siguiente;Next
+ant;Anterior;Previous
+apre;Aprendizaje Supervisado;Supervised Learning
+comp;Comparación de Modelos;Model Comparison
+prom;Promedio;Mean
+naiv;Ingenuo;Naive
+snai;Estacional Ingenuo;Seasonal Naive
+drif;Desvío;Drift
+reds;Redes Neuronales;Neural Networks
+auto;Automático;Automatic
+mano;Manual;Manual
+brut;Fuerza bruta;Brute force
+holt;Holt-Winters;Holt-Winters
+arim;Arima;Arima
+text_m;Modelo;Model
+table_m;Predicción;Prediction
+coltrain;Seleccione el color del Entrenamiento:;Select Train color:
+coltest;Seleccione el color de la Prueba:;Select Test color:
+colpred;Seleccione el color de la Predicción:;Select Prediction color:
+plot_m;Gráfico de la Predicción;Prediction Plot
+txterror;Errores;Errors
+error_m;Índices Generales;General indexes
+mse;Error Cuadrático Medio;Mean Square Error
+rmse;Raiz de Error Cuadrático Medio;Root Mean Square Error
+re;Error Relativo;Relative Error
+cor;Correlación;Correlation
+diff;Diferencia;Difference
+tamred;Selecciona la cantidad de capas ocultas:;Select the number of hidden layers:
+cali;Calibrar;Calibrate
+calip;Calibrar Parámetros;Calibrate Parameters
+paso;Seleccione el paso:;Select the step:
+lar;Seleccione hasta dónde probar (p, d, q):;Select how far to test (p, d, q):
+les;Seleccione hasta dónde probar (P, D, Q):;Select how far to test (P, D, Q):
+corre;Correlograma;Correlogram
+news;Predicción Individuos Nuevos;Predict New Cases
+n_pred;Indique la cantidad de fechas a predecir:;Indicate the number of dates to predict:
+linf;Limite inferior;Lower bound
+lsup;Limite Superior;Upper bound
+copyright;TODOS LOS DERECHOS RESERVADOS A;ALL RIGHTS RESERVED TO
+info;MÁS INFORMACIÓN;MORE INFORMATION
+version;VERSIÓN DEL SISTEMA;SYSTEM VERSION
+doccarga;Carga de datos;Load data
+doctsdf;Serie de tiempo (DF);Time series (DF)
+docts;Serie de tiempo (ts);Time series (ts)
+docnormal;Gráfico de Normalidad;Normality Plot
+docqq;Gráfico de Normalidad QQ;QQ Plot Normal
+docnormaldf;Test de Normalidad;Normality Test
+doctc;Tendencia y Ciclicidad;Trend and Cyclicality
+docdesc;Gráfico de Descomposición;Decomposition Plot
+docperi;Periodograma;Periodogram
+docpromm;Modelo del Método Promedio;Average Method Model
+docpromt;Tabla de la predicción del Método Promedio;Average prediction Method table
+docpromp;Gráfico de la predicción del Método Promedio;Average Method prediction plot
+docprome;Error del Método Promedio;Average Method Error
+docnaivm;Modelo del Método Ingenuo;Naïve prediction Method table
+docnaivt;Tabla de la predicción del Método Ingenuo;Naïve Method Model
+docnaivp;Gráfico de la predicción del Método Ingenuo;Naïve prediction Method plot
+docnaive;Error del Método Ingenuo;Naïve Method Error
+docsnaim;Modelo del Método Estacional Ingenuo;Seasonal Naïve Method Model
+docsnait;Tabla de la predicción del Método Estacional Ingenuo;Seasonal Naïve prediction Method table
+docsnaip;Gráfico de la predicción del Método Estacional Ingenuo;Seasonal Naïve prediction Method plot
+docsnaie;Error del Método Estacional Ingenuo;Seasonal Naïve Method Error
+docdrifm;Modelo del Método Desvío;Drift Method Model
+docdrift;Tabla de la predicción del Método Desvío;Drift prediction Method table
+docdrifp;Gráfico de la predicción del Método Desvío;Drift Method prediction plot
+docdrife;Error del Método Desvío;Drift Method Error
+docdescm;Modelo del Método Descomposición;Decomposition Method Model
+docdesct;Tabla de la predicción del Método Descomposición;Decomposition prediction Method table
+docdescp;Gráfico de la predicción del Método Descomposición;Decomposition Method prediction plot
+docdesce;Error del Método Descomposición;Decomposition Method Error
+docredsm;Modelo del Método Redes Neuronales;Neural Net Method Model
+docredst;Tabla de la predicción del Método Redes Neuronales;Neural Net prediction Method table
+docredsp;Gráfico de la predicción del Método Redes Neuronales;Neural Net Method prediction plot
+docredse;Error del Método Redes Neuronales;Neural Net Method Error
+docholtm;Modelo del Método Holt-Winters;Holt-Winters Method Model
+docholtt;Tabla de la predicción del Método Holt-Winters;Holt-Winters prediction Method table
+docholtp;Gráfico de la predicción del Método Holt-Winters;Holt-Winters Method prediction plot
+docholte;Error del Método Holt-Winters;Holt-Winters Method Error
+docarimm;Modelo del Método ARIMA;ARIMA Method Model
+docarima;Autocorrelación Simple;Simple Autocorrelation
+docarimc;Autocorrelación Parcial;Partial Autocorrelation
+docarimo;Periodograma (Serie de Pruebas);Periodogram (Test Time Series)
+docarimt;Tabla de la predicción del Método ARIMA;ARIMA prediction Method table
+docarimp;Gráfico de la predicción del Método ARIMA;ARIMA Method prediction plot
+docarime;Error del Método ARIMA;ARIMA Method Error
+doccompt;Error de todos los modelos;Error of all models
+doccompe;Gráfico del Error de todos los modelos;Error plot of all models
+doccompp;Gráfico de la predicción de todos los modelos;Prediction plot for all models
+docmodel;Generación del Modelo;Model Generation
+docpred;Gráfico de la predicción;Prediction plot

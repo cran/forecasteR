@@ -1,0 +1,165 @@
+.disabled {
+  background: #eee;
+  cursor: default;
+  color: black;
+}
+
+.tab-content {
+  position: relative;
+  overflow-y: hidden;
+}
+
+.nav-tabs-custom > .tab-content {
+  background: #fff;
+  padding: 0 0 0 0;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.tab-content > .active {
+  display: block;
+  padding: 10px 10px 10px 10px;
+}
+
+.nav-tabs-vertical > .vertical-tabs {
+  float: left;
+  height: 200px;
+  border: 1px solid #444;
+}
+
+.nav-tabs-vertical > .tab-content {
+  height: 200px;
+  background-color: #444;
+}
+
+.nav-tabs-vertical > .vertical-tabs > li {
+  float: initial;
+}
+
+.nav-tabs-vertical > .vertical-tabs > li > a {
+  margin-right: 0px;
+  border-radius: 0px;
+  color: white;
+}
+
+.nav-tabs-vertical > .vertical-tabs > li > a:hover {
+  color: white;
+  border: 0px;
+  margin-right: 0px;
+  border-radius: 0px;
+  background-color: #555;
+}
+
+.nav-tabs-vertical > .vertical-tabs > li > a:active {
+  color: white;
+  margin-right: 0px;
+  border-radius: 0px;
+  border: 0px;
+  background-color: #444;
+}
+
+.nav-tabs-vertical > .vertical-tabs > li > a:focus {
+  color: white;
+  margin-right: 0px;
+  border-radius: 0px;
+  border: 0px;
+  background-color: #444;
+}
+
+.nav-tabs-vertical > .vertical-tabs > .active {
+  color: white;
+  margin-right: 0px;
+  border-radius: 0px;
+  border: 0px;
+  background-color: #444;
+}
+
+.box-option {
+  color: white;
+  padding: 10px 10px 10px 10px;
+  background: #666666;
+  position: absolute;
+  overflow: auto;
+  transition: transform .5s ease-in-out;
+  opacity: 0.98;
+}
+
+.box-option-left {
+  left: 0;
+}
+
+.box-option-centerleft {
+}
+
+.box-option-center {
+}
+
+.box-option-centeright {
+}
+
+.box-option-right {
+  right: 0;
+}
+
+.box-option-open-left .box-option-left {
+  transform: translateY(-94%);
+}
+
+.box-option-open-centerleft .box-option-centerleft {
+  transform: translateY(-94%);
+}
+
+.box-option-open-center .box-option-center {
+  transform: translateY(-94%);
+}
+
+.box-option-open-centeright .box-option-centeright {
+  transform: translateY(-94%);
+}
+
+.box-option-open-right .box-option-right {
+  transform: translateY(-94%);
+}
+
+.btn-options button {
+    background-color: #777777;
+    border: 1px solid gray; 
+    color: white;
+    padding: 10px 24px;
+    cursor: pointer;
+    float: left;
+}
+
+.btn-options:after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.btn-options button:not(:last-child) {
+    border-right: none;
+}
+
+.btn-options button:hover {
+    background-color: #666666;
+}
+
+.btn-options button:focus {
+    background-color: #666666;
+    outline: -webkit-focus-ring-color auto 0;
+}
+
+/* Run Button */
+
+.run-button {
+  padding-left: 10px;
+  background: transparent;
+  color: green;
+  border: 0;
+  font-size: 15px;
+  float: right;
+}
+
+.run-button:active {
+  transform: translateY(4px);
+}
