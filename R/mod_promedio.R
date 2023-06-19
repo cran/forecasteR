@@ -14,7 +14,7 @@ mod_promedio_ui <- function(id) {
   opc_prom <- div(
     conditionalPanel(
       condition = "input.BoxProm == 'tabText' | input.BoxProm == 'tabPlot'", ns = ns,
-      tabsOptions(list(icon("cog")), 100, 70, tabs.content = list(
+      tabsOptions(list(icon("gear")), 100, 70, tabs.content = list(
         list(
           conditionalPanel(
             condition = "input.BoxProm == 'tabText'", ns = ns,

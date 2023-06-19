@@ -65,3 +65,45 @@ updateLabelInput <- function (session, labelid, value = NULL) {
     type = 'updateLabel',
     message = list(ids = labelid, values = sentvalue))
 }
+
+###################################### Shiny ##################################
+
+chooserInput <- function(inputId, leftLabel, rightLabel, leftChoices, rightChoices,
+                         size = 5, multiple = FALSE, idleft = NULL, idright = NULL) {
+  
+  leftChoices  <-  lapply(leftChoices, function(x) tags$option(paste0(x, "_1"), label = x))
+  rightChoices <- lapply(rightChoices, function(x) tags$option(paste0(x, "_1"), label = x))
+  
+  if (multiple)
+    multiple <- "multiple"
+  else
+    multiple <- NULL
+  
+  tagList(
+    singleton(tags$head(
+      tags$script(src = "forecastR_chooser.js"),
+      tags$style(type = "text/css",
+                 HTML(".chooser-container { display: inline-block; }")
+      )
+    )),
+    div(id=inputId, class="chooser",
+        div(class="chooser-container chooser-left-container",
+            style = "width: 45%;",
+            h4(leftLabel, style = "color: white;"),
+            tags$select(class = "left", size = size, multiple = multiple,
+                        leftChoices, style = "width: 100%;")
+        ),
+        div(class="chooser-container chooser-center-container",
+            icon("circle-arrow-right", "right-arrow fa-3x"),
+            tags$br(),
+            icon("circle-arrow-left", "left-arrow fa-3x")
+        ),
+        div(class="chooser-container chooser-right-container",
+            style = "width: 45%;",
+            h4(rightLabel, style = "color: white;"),
+            tags$select(id = idright, class = "right", size = size, 
+                        multiple = multiple, rightChoices, style = "width: 100%;")
+        )
+    )
+  )
+}

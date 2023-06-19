@@ -10,7 +10,7 @@
 mod_normal_ui <- function(id) {
   ns <- NS(id)
   
-  opc_hist <- tabsOptions(list(icon("cog")), 100, 70, tabs.content = list(
+  opc_hist <- tabsOptions(list(icon("gear")), 100, 70, tabs.content = list(
     list(options.run(), tags$hr(style = "margin-top: 0px;"),
          conditionalPanel(
            "input.BoxNormal == 'tabNormalPlot'",

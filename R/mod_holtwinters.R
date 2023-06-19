@@ -15,7 +15,7 @@ mod_holtwinters_ui <- function(id){
   opc_holt <- div(
     conditionalPanel(
       condition = "input.BoxHolt == 'tabText' | input.BoxHolt == 'tabPlot'", ns = ns,
-      tabsOptions(list(icon("cog")), 100, 70, tabs.content = list(
+      tabsOptions(list(icon("gear")), 100, 70, tabs.content = list(
         list(
           conditionalPanel(
             condition = "input.BoxHolt == 'tabText'", ns = ns,

@@ -29,10 +29,17 @@ mod_carga_datos_ui <- function(id) {
             ),
             radioButtons(ns('dec'), labelInput("separadordec"), c(',', '.'),
                          inline = T),
-            fileInput(
-              ns('archivo'), labelInput("cargarchivo"), width = "100%",
-              placeholder = "", buttonLabel = labelInput("subir"),
-              accept = c('text/csv', '.csv', '.txt'))
+            fluidRow(
+              col_10(
+                fileInput(
+                  ns('archivo'), labelInput("cargarchivo"), width = "100%",
+                  placeholder = "", buttonLabel = labelInput("subir"),
+                  accept = c('text/csv', '.csv', '.txt'))
+              ),
+              col_2(
+                actionButton(ns("prevfile"), NULL, icon = icon("eye"), style = "margin-top: 25px;")
+              )
+            )
           ), hr(),
           actionButton(ns("loadButton"), labelInput("cargar"), width = "100%"),
           footer = div(
@@ -52,10 +59,6 @@ mod_carga_datos_ui <- function(id) {
           solidHeader = TRUE, collapsible = TRUE,
           fluidRow(
             col_4(
-              h3(labelInput('data')),
-              selectInput(ns("sel_valor"), labelInput('selvalor'), "")
-            ),
-            col_8(
               h3(labelInput('date')),
               radioButtons(
                 ns('colFecha'), NULL, inline = T, 
@@ -71,7 +74,15 @@ mod_carga_datos_ui <- function(id) {
                 selectInput(ns("tipofecha"), labelInput('seltipo'), NULL),
                 uiOutput(ns("uifechas"))
               )
-            ), 
+            ),
+            col_4(
+              h3(labelInput('data')),
+              selectInput(ns("sel_valor"), labelInput('selvalor'), "")
+            ),
+            col_4(
+              h3(labelInput('suav')),
+              numericInput(ns("num_suavizado"), labelInput('nsuav'), 5)
+            ),
             col_12(hr(), actionButton(ns("tsdfButton"), labelInput("cargar"), 
                                       width = "100%"))
           ),
@@ -103,7 +114,7 @@ mod_carga_datos_ui <- function(id) {
     )
   )
 }
-    
+
 #' carga_datos Server Function
 #'
 #' @noRd 
@@ -142,6 +153,32 @@ mod_carga_datos_server <- function(input, output, session, updateData, rvmodelo)
   })
   
   ############################# Carga de datos ################################
+  
+  # Previsualizar archivo
+  observeEvent(input$prevfile, {
+    ruta <- isolate(input$archivo)
+    if(is.null(ruta)) {
+      showNotification("ERROR 00005: Debe cargar un archivo.", 
+                       type = "error")
+    } else {
+      con = file(ruta$datapath, "r")
+      prev <- ""
+      for (i in 1:10) {
+        line = readLines(con, n = 1)
+        if ( length(line) == 0 ) {
+          break
+        }
+        prev <- paste0(prev, line, "<br>")
+      }
+      close(con)
+      showModal(
+        modalDialog(
+          HTML(prev), style = "overflow: auto;", easyClose = TRUE,
+          title = tr("vfil", updateData$idioma), footer = NULL, size = "xl"
+        )
+      )
+    }
+  })
   
   # Función del botón loadButton
   observeEvent(input$loadButton, {
@@ -351,8 +388,28 @@ mod_carga_datos_server <- function(input, output, session, updateData, rvmodelo)
       } else {
         fechas <- text_toDate(datos[[input$sel_fecha]])
         
-        updateData$seriedf <- data.frame(
-          fechas = fechas[[1]], valor = datos[[input$sel_valor]])
+        df  <- data.frame(fechas = fechas[[1]], 
+                          valor = datos[[input$sel_valor]])
+        
+        if(fechas[[2]] == "workdays") {
+          total.fechas  <- seq(df$fechas[1], df$fechas[length(df$fechas)],
+                               by = "days")
+          faltan.fechas <- total.fechas[!total.fechas %in% df$fechas]
+          faltan.fechas <- faltan.fechas[!wday(faltan.fechas) %in% c(1, 7)]
+        } else {
+          total.fechas  <- seq(df$fechas[1], df$fechas[length(df$fechas)],
+                               by = fechas[[2]])
+          faltan.fechas <- total.fechas[!total.fechas %in% df$fechas]
+        }
+        
+        if(length(faltan.fechas) > 0) {
+          df <- merge(df, data.frame(fechas = faltan.fechas), all = TRUE)
+          df <- df[order(df$fechas), ]
+          df.suavizado <- smoothing(df$valor, input$num_suavizado)
+          df$valor[which(is.na(df$valor))] <- df.suavizado[which(is.na(df$valor))]
+        }
+        
+        updateData$seriedf <- df
         updateData$ts_type <- fechas[[2]]
         
         cod <- code.tsdf(input$sel_valor, cold = input$sel_fecha)
@@ -416,20 +473,20 @@ mod_carga_datos_server <- function(input, output, session, updateData, rvmodelo)
         fechas <- list(12)
         names(fechas) <- c(tr("anual", lg))
       } else if(tipo == "days") {
-        fechas <- list(365, 7)
-        names(fechas) <- c(tr("anual", lg), tr("semanal", lg))
+        fechas <- list(365, 30, 7)
+        names(fechas) <- c(tr("anual", lg), tr("mes", lg), tr("semanal", lg))
       } else if(tipo == "workdays") {
         fechas <- list(260, 5)
         names(fechas) <- c(tr("anual", lg), tr("semanal", lg))
       } else if(tipo == "hours") {
-        fechas <- list(24, 8760)
-        names(fechas) <- c(tr("dia", lg), tr("anual", lg))
+        fechas <- list(8760, 720, 24)
+        names(fechas) <- c(tr("anual", lg), tr("mes", lg), tr("dia", lg))
       } else if(tipo == "min") {
-        fechas <- list(60, 1440, 525600)
-        names(fechas) <- tr(c('hora', 'dia', 'anual'), lg)
+        fechas <- list(525600, 43200, 1440, 60)
+        names(fechas) <- tr(c('anual', 'mes', 'dia', 'hora'), lg)
       } else if(tipo == "sec") {
-        fechas <- list(60, 3600, 86400, 31536000)
-        names(fechas) <- tr(c('minuto', 'hora', 'dia', 'anual'), lg)
+        fechas <- list(31536000, 2592000, 86400, 3600, 60)
+        names(fechas) <- tr(c('anual', 'mes', 'dia', 'hora', 'minuto'), lg)
       }
       
       updateSelectInput("sel_patron", session = session, choices = fechas)

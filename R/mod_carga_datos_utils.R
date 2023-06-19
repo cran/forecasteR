@@ -35,9 +35,10 @@ var.categoricas <- function(data) {
 #' @author Diego Jimenez <diego.jimenez@promidat.com>
 #' @return list
 #' @importFrom stringr str_extract str_replace str_remove str_to_lower
+#' @importFrom lubridate interval seconds
 #' @export text_toDate
 #' @examples
-#' text_toDate("2021 january 30")
+#' text_toDate(c("2023 january 27", "2023 january 28"))
 #' 
 text_toDate <- function(f) {
   e <- list(y = NA, ms = NA, d = NA, h = NA, m = NA, s = NA)
@@ -49,6 +50,7 @@ text_toDate <- function(f) {
              "september" = 9, "october" = 10, "november" = 11, "december" = 12)
   f <- str_to_lower(f)
   
+  tipo <- 'years'
   e[['y']] <- str_extract(f, "\\d{4}")
   f <- str_remove(f, "\\d{4}")
   
@@ -58,6 +60,7 @@ text_toDate <- function(f) {
   if(any(is.na(e[['ms']]))) {
     names(meses) <- str_extract(names(meses), "\\w{3}")
     e[['ms']] <- str_extract(f, paste(names(meses), collapse = "|"))
+    tipo <- 'months'
   }
   if(!any(is.na(e[['ms']]))) {
     e[['ms']] <- meses[e[["ms"]]]
@@ -68,13 +71,13 @@ text_toDate <- function(f) {
     aux <- as.numeric(aux)
     if(max(aux) <= 12 & any(is.na(e[['ms']]))) {
       e[['ms']] <- aux
-    } else if(max(aux) <= 23) {
+    } else if(max(aux) <= 23 & any(is.na(e[['h']]))) {
       e[['h']] <- aux
-    } else if(max(aux) <= 31) {
+    } else if(max(aux) <= 31 & any(is.na(e[['d']]))) {
       e[['d']] <- aux
     } else if(max(aux) <= 59 & any(is.na(e[['m']]))) {
       e[['m']] <- aux
-    } else if(max(aux) <= 59) {
+    } else if(max(aux) <= 59 & any(is.na(e[['s']]))) {
       e[['s']] <- aux
     } else if(any(is.na(e[['y']]))) {
       e[['y']] <- aux
@@ -84,17 +87,25 @@ text_toDate <- function(f) {
     aux <- str_extract(f, "\\d{1,2}")
   }
   
-  tipo <- 'years'
-  ifelse(any(is.na(e[["y"]])),  e[["y"]]  <- 2021, tipo <- 'years')
-  ifelse(any(is.na(e[["ms"]])), e[["ms"]] <- 1, tipo <- 'months')
-  ifelse(any(is.na(e[["d"]])),  e[["d"]]  <- 1, tipo <- 'days')
-  ifelse(any(is.na(e[["h"]])),  e[["h"]]  <- 0, tipo <- 'hours')
-  ifelse(any(is.na(e[["m"]])),  e[["m"]]  <- 0, tipo <- 'min')
-  ifelse(any(is.na(e[["s"]])),  e[["s"]]  <- 0, tipo <- 'sec')
-  
   res <- paste0(e[["y"]], "-", e[["ms"]], "-", e[["d"]], " ", 
                 e[["h"]], ":", e[["m"]], ":", e[["s"]])
   res <- as.POSIXct(res, tz = "UTC")
+  
+  diferencia <- interval(res[1], res[2]) / seconds(1)
+  
+  if(diferencia >= 31539600) {
+    tipo <- 'years'
+  } else if(diferencia >= 2419200) {
+    tipo <- 'months'
+  } else if(diferencia >= 86400) {
+    tipo <- 'days'
+  } else if(diferencia == 3600) {
+    tipo <- 'hours'
+  } else if(diferencia == 60) {
+    tipo <- 'min'
+  } else if(diferencia == 1) {
+    tipo <- 'sec'
+  }
   
   if(tipo == "days" & !any(wday(res) %in% c(1, 7))) {
     tipo <- "workdays"
@@ -147,6 +158,30 @@ get_start <- function(ini, tipo_f, patron) {
     res   <- which(dates == ini) 
     return(c(year(ini), res))
   }
+}
+
+#' Apply rolling to a numeric vector.
+#'
+#' @param v a numeric vector.
+#' @param n integer value specifying the window width.
+#'
+#' @author Diego Jimenez <diego.jimenez@promidat.com>
+#' @return numeric vector
+#' @importFrom zoo rollapply
+#' @export smoothing
+#' @examples
+#' smoothing(AirPassengers, 5)
+#' 
+smoothing <- function(v, n) {
+  if (n%%2 == 0) {
+    izquierda = rep(NA, (floor(n/2) - 1))
+    derecha = rep(NA, floor(n/2))
+  } else {
+    izquierda = derecha = rep(NA, floor(n/2))
+  }
+  
+  v <- c(izquierda, v, derecha)
+  return(rollapply(v, n, mean, na.rm = T))
 }
 
 carga.datos <- function(ruta = NULL, sep = ";", dec = ",", encabezado = T) {

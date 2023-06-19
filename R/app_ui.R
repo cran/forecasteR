@@ -30,7 +30,7 @@ app_ui <- function(request) {
             </a>
           </span>',
           '<img src= "img/logo_small.png" height = 50%, width = "120%">'
-        )), controlbarIcon = icon("cogs")
+        )), controlbarIcon = icon("gears")
       ),
       
       dashboardSidebar(
@@ -41,30 +41,35 @@ app_ui <- function(request) {
                    icon = icon("database")),
           menuItem(
             labelInput("basico"), tabName = "parte1",
-            icon = icon("th-list"),
-            menuSubItem(labelInput("norm"), "norm", icon = icon("chart-area")),
-            menuSubItem(labelInput("t_c"),  "t_c",  icon = icon("chart-line")),
-            menuSubItem(labelInput("desc"), "desc", icon = icon("puzzle-piece")),
-            menuSubItem(labelInput("peri"), "peri", icon = icon("sliders-h"))
+            icon = icon("table-list"),
+            menuSubItem(labelInput("norm"), "norm", icon = icon("chart-simple")),
+            menuSubItem(labelInput("t_c"),  "t_c",  icon = icon("arrow-up-right-dots")),
+            menuSubItem(labelInput("desc"), "desc", icon = icon("water")),
+            menuSubItem(labelInput("peri"), "peri", icon = icon("road"))
           ),
           menuItem(
             labelInput("apre"), tabName = "parte2",
-            icon = icon("th-list"),
-            menuSubItem(labelInput("prom"), "prom", icon = icon("adjust")),
-            menuSubItem(labelInput("naiv"), "naiv", icon = icon("long-arrow-alt-right")),
-            menuSubItem(labelInput("snai"), "snai", icon = icon("chart-area")),
-            menuSubItem(labelInput("drif"), "drif", icon = icon("chart-line")),
-            menuSubItem(labelInput("desc"), "deco", icon = icon("puzzle-piece")),
+            icon = icon("table-list"),
+            menuSubItem(labelInput("prom"), "prom", icon = icon("scale-balanced")),
+            menuSubItem(labelInput("naiv"), "naiv", icon = icon("arrow-right-long")),
+            menuSubItem(labelInput("snai"), "snai", icon = icon("arrow-trend-up")),
+            menuSubItem(labelInput("drif"), "drif", icon = icon("arrow-turn-up")),
+            menuSubItem(labelInput("desc"), "deco", icon = icon("water")),
             menuSubItem(labelInput("reds"), "reds", icon = icon("brain")),
-            menuSubItem("Holt-Winters", "h_w", icon = icon("industry")),
+            menuSubItem(labelInput("deep"), "deep", icon = icon("code-branch")),
+            menuSubItem("Holt-Winters", "h_w", icon = icon("chart-line")),
             menuSubItem("ARIMA", "arim", icon = icon("chart-bar"))
           ),
           menuItem(labelInput("comp"), tabName = "comp", icon = icon("eye")),
-          menuItem(labelInput("news"), tabName = "news", icon = icon("magic")),
+          menuItem(labelInput("news"), tabName = "news", icon = icon("wand-magic-sparkles")),
           menuItem(labelInput("acercade"), tabName = "acercaDe",
                    icon = icon("info")),
           hr(),
           menu.idioma(),
+          hr(),
+          img(src = "img/forecasteR.png",
+              style = paste0("margin-left: auto;",
+                             "margin-right: auto;display: block;width: 80%;")),
           tags$div(style = "display:none;",
                    sliderInput(inputId = "aux", min = 2, value = 2,
                                label = "Cantidad de Clusters", max = 10),
@@ -110,6 +115,9 @@ app_ui <- function(request) {
           
           # Redes
           tabItem(tabName = "reds",  mod_redes_ui("redes_ui_1")),
+          
+          # Deep Learning
+          tabItem(tabName = "deep",  mod_deep_ui("deep_ui_1")),
           
           # Holt-Winters
           tabItem(tabName = "h_w",   mod_holtwinters_ui("holtwinters_ui_1")),

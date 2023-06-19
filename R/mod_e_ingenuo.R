@@ -14,7 +14,7 @@ mod_e_ingenuo_ui <- function(id){
   opc_snaive <- div(
     conditionalPanel(
       condition = "input.BoxSnaive == 'tabText' | input.BoxSnaive == 'tabPlot'", ns = ns,
-      tabsOptions(list(icon("cog")), 100, 70, tabs.content = list(
+      tabsOptions(list(icon("gear")), 100, 70, tabs.content = list(
         list(
           conditionalPanel(
             condition = "input.BoxSnaive == 'tabText'", ns = ns,

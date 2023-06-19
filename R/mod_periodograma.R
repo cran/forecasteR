@@ -10,7 +10,7 @@
 mod_periodograma_ui <- function(id){
   ns <- NS(id)
   
-  opts_cor <- tabsOptions(list(icon("cog")), 100, 70, tabs.content = list(
+  opts_cor <- tabsOptions(list(icon("gear")), 100, 70, tabs.content = list(
     list(
       options.run(), tags$hr(style = "margin-top: 0px;"),
       sliderInput(ns("sel_best"), labelInput("selbest"), 1, 20, 1),

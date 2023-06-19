@@ -10,7 +10,7 @@
 mod_descom_ui <- function(id){
   ns <- NS(id)
   
-  opts_descom <- tabsOptions(list(icon("cog")), 100, 70, tabs.content = list(
+  opts_descom <- tabsOptions(list(icon("gear")), 100, 70, tabs.content = list(
     list(
       options.run(), tags$hr(style = "margin-top: 0px;"),
       colourpicker::colourInput(

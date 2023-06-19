@@ -11,8 +11,8 @@ A web application for displaying, analysing and forecasting univariate time seri
 \tabular{ll}{
 Package: \tab forecasteR\cr
 Type: \tab Package\cr
-Version: \tab 1.1.6\cr
-Date: \tab 2022-02-28\cr
+Version: \tab 2.0.2\cr
+Date: \tab 2023-06-19\cr
 License: \tab GPL (>=2)\cr
 }
 }

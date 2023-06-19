@@ -97,7 +97,6 @@ tabla.errores <- function(Preds, Real, nombres = NULL) {
 #' @return data.frame
 #' @export grafico.errores
 #' @import echarts4r
-#' @importFrom scales rescale
 #' @examples
 #' model <- arima(window(AirPassengers, end = c(1959, 12)))
 #' pred  <- predict(model, 12)
@@ -105,7 +104,9 @@ tabla.errores <- function(Preds, Real, nombres = NULL) {
 #' grafico.errores(e)
 #' 
 grafico.errores <- function (errores) {
-  errores <- apply(errores, 2, function(i) scales::rescale(i, to = c(0, 100)))
+  errores <- apply(errores, 2, function(i) {
+    (i - min(i, na.rm = T)) / (max(i, na.rm = T) - min(i, na.rm = T)) * 100
+  })
   errores <- errores + 10
   errores <- data.frame(t(errores))
   errores$vars <- row.names(errores)

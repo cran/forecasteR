@@ -14,7 +14,7 @@ mod_desvio_ui <- function(id){
   opc_drift <- div(
     conditionalPanel(
       condition = "input.BoxDrift == 'tabText' | input.BoxDrift == 'tabPlot'", ns = ns,
-      tabsOptions(list(icon("cog")), 100, 70, tabs.content = list(
+      tabsOptions(list(icon("gear")), 100, 70, tabs.content = list(
         list(
           conditionalPanel(
             condition = "input.BoxDrift == 'tabText'", ns = ns,

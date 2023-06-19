@@ -81,3 +81,9 @@
 .shiny-input-container:not(.shiny-input-container-inline) {
     width: 100%;
 }
+
+/* Chooser Style */
+.chooser-container {
+  display: inline-block;
+  color: black;
+}

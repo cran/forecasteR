@@ -15,7 +15,7 @@ mod_m_descom_ui <- function(id){
   opc_desc <- div(
     conditionalPanel(
       condition = "input.BoxDesc == 'tabText' | input.BoxDesc == 'tabPlot'", ns = ns,
-      tabsOptions(list(icon("cog")), 100, 70, tabs.content = list(
+      tabsOptions(list(icon("gear")), 100, 70, tabs.content = list(
         list(
           conditionalPanel(
             condition = "input.BoxDesc == 'tabText'", ns = ns,

@@ -76,23 +76,6 @@ tr <- function(text, idioma = "es") {
   }, USE.NAMES = F)
 }
 
-cambiar.labels <- function() {
-  x <- c('data', 'date', 'acercade', 'idioma', 'selidioma','copyright', 'info',
-         'version', 'cargar', 'header', 'separador', 'separadordec',
-         'cargarchivo', 'subir', 'sig', 'ant', 'selvalor', 'selfecha', 'train',
-         'test', 'opciones', 'ejecutar', 'basico', 'norm', 'plotnormal',
-         'selcolbar', 'selcolline', 'selcolpoint', 't_c', 'desc', 'peri',
-         'apre', 'comp', 'prom', 'naiv', 'snai', 'drif', 'reds', 'text_m',
-         'table_m', 'plot_m', 'error_m', 'mse', 'rmse', 'seltipo', 'selrango',
-         'hasta', 'sel', 'cre', 'selpatron', 'colts', 'coltend', 'colcicl', 
-         'colseas', 'colresi', 'colperi', 'colbest', 'selbest', 'coltrain',
-         'coltest', 'colpred', 'tamred', 'selperi', 'corre', 'cali', 'calip',
-         'paso', 'lar', 'les', 'news', 'txterror', 'n_pred', 'code', 'generar',
-         'sdiff', 'auto', 'mano', 'brut', 'selmodel')
-  
-  return(x)
-}
-
 # Función para generar diccionario.
 # crear.traslation <- function() {
 #   library(plyr)

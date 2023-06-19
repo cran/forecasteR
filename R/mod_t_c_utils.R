@@ -43,7 +43,7 @@ e_tc <- function(x, d = NULL, noms = c("Time Series", "Trend", "Cyclicality")) {
     fourier   <- fourier
   }
   
-  df <- data.frame(x = d, w = lserie, y = regresion, z = fourier)
+  df <- data.frame(x = as.character(d), w = lserie, y = regresion, z = fourier)
   
   df |> e_charts(x) |> e_line(w, name = noms[1]) |> 
     e_line(y, name = noms[2], showSymbol = F) |> 

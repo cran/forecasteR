@@ -14,7 +14,7 @@ mod_redes_ui <- function(id){
   opc_redes <- div(
     conditionalPanel(
       condition = "input.BoxRedes == 'tabText' | input.BoxRedes == 'tabPlot'", ns = ns,
-      tabsOptions(list(icon("cog")), 100, 70, tabs.content = list(
+      tabsOptions(list(icon("gear")), 100, 70, tabs.content = list(
         list(
           conditionalPanel(
             condition = "input.BoxRedes == 'tabText'", ns = ns,

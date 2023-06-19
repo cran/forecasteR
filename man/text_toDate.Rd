@@ -16,7 +16,7 @@ list
 Convert character to dates
 }
 \examples{
-text_toDate("2021 january 30")
+text_toDate(c("2023 january 27", "2023 january 28"))
 
 }
 \author{

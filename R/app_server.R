@@ -29,14 +29,16 @@ app_server <- function( input, output, session ) {
                    test = NULL, ts_type = NULL, idioma = NULL, code = NULL, 
                    codenew = NULL)
   
-  rvmodelo <- rv(prom = NULL, inge = NULL, eing = NULL, drif = NULL,
-                 deco = NULL, holt = NULL, arim = NULL)
+  rvmodelo <- rv(prom = NULL, inge = NULL, eing = NULL, drif = NULL, 
+                 deco = NULL, holt = NULL, arim = NULL, reds = NULL,
+                 deep = NULL)
   
   ###################################  Update  ################################
   # Update on Language
   observeEvent(input$idioma, {
     updateData$idioma <- input$idioma
-    updateLabelInput(session, cambiar.labels(), tr(cambiar.labels(), input$idioma))
+    etiquetas <- names(translation)
+    updateLabelInput(session, etiquetas, tr(etiquetas, input$idioma))
   })
   
   # Update Code
@@ -49,7 +51,7 @@ app_server <- function( input, output, session ) {
     todo[["comp"]] <- NULL
     
     cod <- paste0(
-      "library(forecast)\n", "library(lubridate)\n",
+      "library(keras)\n", "library(forecast)\n", "library(lubridate)\n",
       "library(echarts4r)\n", "library(forecasteR)\n\n"
     )
     for (modulo in todo) {
@@ -107,6 +109,7 @@ app_server <- function( input, output, session ) {
   callModule(mod_desvio_server,      "desvio_ui_1",      updateData, rvmodelo)
   callModule(mod_m_descom_server,    "m_descom_ui_1",    updateData, rvmodelo)
   callModule(mod_redes_server,       "redes_ui_1",       updateData, rvmodelo)
+  callModule(mod_deep_server,        "deep_ui_1",        updateData, rvmodelo)
   callModule(mod_holtwinters_server, "holtwinters_ui_1", updateData, rvmodelo)
   callModule(mod_arima_server,       "arima_ui_1",       updateData, rvmodelo)
   callModule(mod_comparacion_server, "comparacion_ui_1", updateData, rvmodelo)

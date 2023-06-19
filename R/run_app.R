@@ -6,6 +6,14 @@
 #' @importFrom shiny shinyApp
 #' @importFrom golem with_golem_options
 run_app <- function(...) {
+  
+  registerInputHandler("shinyjsexamples.chooser", function(data, ...) {
+    if (is.null(data))
+      NULL
+    else
+      list(left=as.character(data$left), right=as.character(data$right))
+  }, force = TRUE)
+  
   Sys.setenv("LANGUAGE" = "ES")
   old <- options()
   on.exit(options(old))

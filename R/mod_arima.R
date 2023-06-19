@@ -16,7 +16,7 @@ mod_arima_ui <- function(id){
   opc_arima <- div(
     conditionalPanel(
       condition = "input.BoxArima == 'tabText' | input.BoxArima == 'tabPlot' | input.BoxArima == 'tabPeri'", ns = ns,
-      tabsOptions(list(icon("cog")), 100, 70, tabs.content = list(
+      tabsOptions(list(icon("gear")), 100, 70, tabs.content = list(
         list(
           conditionalPanel(
             condition = "input.BoxArima == 'tabText'", ns = ns,
