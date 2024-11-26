@@ -211,10 +211,14 @@ mod_nuevos_server <- function(input, output, session, updateData) {
     names(fechas) <- tr(c('anual', 'mes', 'dia', 'dialab', 'hora', 'minuto', 'segundo'), lg)
     updateSelectInput(session, "n_tipofecha", choices = fechas)
     
-    models <- list("prom", "naiv", "snai", "drif", "desc",
-                   "reds", "deep", "holt", "arim")
-    names(models) <- tr(c("prom", "naiv", "snai", "drif", "desc",
-                          "reds", "deep", "holt", "arim"), lg)
+    # models <- list("prom", "inge", "eing", "drif", "desc",
+    #                "reds", "deep", "holt", "arim")
+    # names(models) <- tr(c("prom", "inge", "eing", "drif", "desc",
+    #                       "reds", "deep", "holt", "arim"), lg)
+    models <- list("prom", "inge", "eing", "drif", "desc",
+                   "reds", "holt", "arim")
+    names(models) <- tr(c("prom", "inge", "eing", "drif", "desc",
+                          "reds", "holt", "arim"), lg)
     updateSelectInput(session, "sel_model", choices = models)
   })
   
@@ -723,10 +727,10 @@ mod_nuevos_server <- function(input, output, session, updateData) {
     if(sel_model == 'prom') {
       modelo <- meanf(serie, h = n_pred)
       cod <- paste0("pred <- meanf(seriets, h = ", n_pred, ")")
-    } else if(sel_model == 'naiv') {
+    } else if(sel_model == 'inge') {
       modelo <- naive(serie, h = n_pred)
       cod <- paste0("pred <- naive(seriets, h = ", n_pred, ")")
-    } else if(sel_model == 'snai') {
+    } else if(sel_model == 'eing') {
       modelo <- snaive(serie, h = n_pred)
       cod <- paste0("pred <- snaive(seriets, h = ", n_pred, ")")
     } else if(sel_model == 'drif') {
@@ -742,58 +746,7 @@ mod_nuevos_server <- function(input, output, session, updateData) {
       cod <- paste0("model <- nnetar(seriets, size = ", tam, ")\n",
                     "pred  <- forecast(model, h = ", n_pred, ", PI = T)")
     } else if(sel_model == 'deep') {
-      laginput <- isolate(input$laginput)
-      batinput <- isolate(input$batinput)
-      epoinput <- isolate(input$epoinput)
-      losinput <- isolate(input$losinput)
-      optinput <- isolate(input$optinput)
-      metinput <- isolate(input$metinput)
       
-      modelo <- keras_model_sequential()
-      cod    <- "model <- keras_keras_model_sequential()"
-      
-      for (capa in capas) {
-        if(capa$layer == "lstm") {
-          modelo <- modelo %>% layer_lstm(
-            units = capa$units, activation = capa$activation,
-            batch_input_shape = c(1, laginput, 1),
-            return_sequences = TRUE, stateful = TRUE)
-          cod <- paste0(cod, " %>% layer_lstm(
-            units = ", capa$units, ", activation = '", capa$activation, "',
-            batch_input_shape = c(1, ", laginput, ", 1),
-            return_sequences = TRUE, stateful = TRUE)")
-        } else if(capa$layer == "rnn") {
-          modelo <- modelo %>% layer_simple_rnn(
-            units = capa$units, activation = capa$activation,
-            batch_input_shape = c(1, laginput, 1),
-            return_sequences = TRUE, stateful = TRUE)
-          cod <- paste0(cod, " %>% layer_simple_rnn(
-            units = ", capa$units, ", activation = '", capa$activation, "',
-            batch_input_shape = c(1, ", laginput, ", 1),
-            return_sequences = TRUE, stateful = TRUE)")
-        } else if(capa$layer == "dense") {
-          modelo <- modelo %>% layer_dense(
-            units = capa$units, activation = capa$activation,
-            batch_input_shape = c(1, laginput, 1))
-          cod <- paste0(cod, " %>% layer_dense(
-            units = ", capa$units, ", activation = '", capa$activation, "',
-            batch_input_shape = c(1, ", laginput, ", 1))")
-        } else if(capa$layer == "dropout") {
-          modelo <- modelo %>% layer_dropout(rate = capa$rate)
-          cod <- paste0(cod, " %>% layer_dropout(rate = ", capa$rate, ")")
-        }
-      }
-      
-      modelo <- modelo %>% layer_dense(units = 1) %>%
-        compile(loss = losinput, optimizer = optinput, metrics = metinput)
-      cod <- paste0(cod, " %>% layer_dense(units = 1) %>%\n",
-                    "compile(loss = '", losinput, "', optimizer = '", optinput,
-                    "', metrics = '", metinput, "')")
-      
-      modelo <- tskeras(serie, modelo, laginput, batinput, epoinput)
-      cod <- paste0(
-        cod, "\n\n", "model <- tskeras(seriets, model, lag = ", laginput, ")\n",
-        "pred <- forecast(model, h = ", n_pred, ")")
     } else if(sel_model == 'holt') {
       alpha  <- isolate(input$n_alpha)
       beta   <- isolate(input$n_beta)
@@ -820,7 +773,7 @@ mod_nuevos_server <- function(input, output, session, updateData) {
     
     isolate(updateNew$modelo <- modelo)
     if (sel_model == 'deep') {
-      isolate(updateNew$pred <- pred.tskeras(modelo, h = n_pred))
+      #isolate(updateNew$pred <- pred.tskeras(modelo, h = n_pred))
     } else if(sel_model %in% c('arim', 'desc')) {
       isolate(updateNew$pred <- forecast(modelo, h = n_pred))
     } else {
@@ -906,7 +859,7 @@ mod_nuevos_server <- function(input, output, session, updateData) {
           buttons = list(list(
             extend = 'csv', filename = paste0(nombre, "_pred"), 
             text = '<i class="fa fa-download" style="color: white;"></i>')))
-      ) %>% DT::formatStyle(columns = names(datos), color="white")
+      ) |> DT::formatStyle(columns = names(datos), color="white")
     }, error = function(e) {
       showNotification(paste0("ERROR 00080: ", e), type = "error")
       return(NULL)

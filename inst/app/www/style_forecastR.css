@@ -87,3 +87,10 @@
   display: inline-block;
   color: black;
 }
+
+/* TEXT OUTPUT */
+.shiny-text-output {
+    overflow-y: scroll !important;
+    min-height: 360px !important;
+    max-height: 70vh !important;
+}

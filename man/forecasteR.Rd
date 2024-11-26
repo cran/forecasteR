@@ -2,6 +2,7 @@
 % Please edit documentation in R/forecasteR.R
 \docType{package}
 \name{forecasteR}
+\alias{forecasteR-package}
 \alias{forecasteR}
 \title{Time Series Forecast System}
 \description{
@@ -11,10 +12,19 @@ A web application for displaying, analysing and forecasting univariate time seri
 \tabular{ll}{
 Package: \tab forecasteR\cr
 Type: \tab Package\cr
-Version: \tab 2.0.2\cr
-Date: \tab 2023-06-19\cr
+Version: \tab 3.0.2\cr
+Date: \tab 2024-11-25\cr
 License: \tab GPL (>=2)\cr
 }
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://promidat.website}
+  \item \url{https://github.com/PROMiDAT/forecasteR}
+  \item Report bugs at \url{https://github.com/PROMiDAT/forecasteR/issues}
+}
+
 }
 \author{
 Maintainer: Oldemar Rodriguez Rojas <oldemar.rodriguez@ucr.ac.cr>\cr

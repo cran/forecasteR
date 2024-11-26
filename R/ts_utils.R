@@ -80,9 +80,14 @@ RE <- function(Pred, Real) {
 tabla.errores <- function(Preds, Real, nombres = NULL) {
   r <- data.frame()
   for (pred in Preds) {
+    if(length(unique(pred)) == 1 | length(unique(Real)) == 1) {
+      CORR <- NA
+    } else {
+      CORR <- cor(Real, pred)
+    }
     r <- rbind(r, data.frame(
       'MSE' = MSE(pred, Real), 'RMSE' = RMSE(pred, Real),
-      'RE'  = RE(pred, Real),  'CORR' = cor(Real, pred)
+      'RE'  = RE(pred, Real),  'CORR' = CORR
     )
     )
   }

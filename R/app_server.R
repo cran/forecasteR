@@ -30,7 +30,7 @@ app_server <- function( input, output, session ) {
                    codenew = NULL)
   
   rvmodelo <- rv(prom = NULL, inge = NULL, eing = NULL, drif = NULL, 
-                 deco = NULL, holt = NULL, arim = NULL, reds = NULL,
+                 desc = NULL, holt = NULL, arim = NULL, reds = NULL,
                  deep = NULL)
   
   ###################################  Update  ################################
@@ -103,15 +103,20 @@ app_server <- function( input, output, session ) {
   callModule(mod_descom_server,       "descom_ui_1",       updateData)
   callModule(mod_periodograma_server, "periodograma_ui_1", updateData)
   
-  callModule(mod_promedio_server,    "promedio_ui_1",    updateData, rvmodelo)
-  callModule(mod_ingenuo_server,     "ingenuo_ui_1",     updateData, rvmodelo)
-  callModule(mod_e_ingenuo_server,   "e_ingenuo_ui_1",   updateData, rvmodelo)
-  callModule(mod_desvio_server,      "desvio_ui_1",      updateData, rvmodelo)
-  callModule(mod_m_descom_server,    "m_descom_ui_1",    updateData, rvmodelo)
-  callModule(mod_redes_server,       "redes_ui_1",       updateData, rvmodelo)
-  callModule(mod_deep_server,        "deep_ui_1",        updateData, rvmodelo)
-  callModule(mod_holtwinters_server, "holtwinters_ui_1", updateData, rvmodelo)
-  callModule(mod_arima_server,       "arima_ui_1",       updateData, rvmodelo)
+  ########################## Entrenamiento-Prueba #############################
+  callModule(mod_train_test_server, "tt_prom_ui", updateData, rvmodelo, "prom")
+  callModule(mod_train_test_server, "tt_inge_ui", updateData, rvmodelo, "inge")
+  callModule(mod_train_test_server, "tt_eing_ui", updateData, rvmodelo, "eing")
+  callModule(mod_train_test_server, "tt_drif_ui", updateData, rvmodelo, "drif")
+  callModule(mod_train_test_server, "tt_desc_ui", updateData, rvmodelo, "desc")
+  callModule(mod_train_test_server, "tt_reds_ui", updateData, rvmodelo, "reds")
+  #callModule(mod_train_test_server, "tt_deep_ui", updateData, rvmodelo, "deep")
+  callModule(mod_train_test_server, "tt_holt_ui", updateData, rvmodelo, "holt")
+  callModule(mod_train_test_server, "tt_arim_ui", updateData, rvmodelo, "arim")
+  
+  ########################## comparación #############################
   callModule(mod_comparacion_server, "comparacion_ui_1", updateData, rvmodelo)
-  callModule(mod_nuevos_server,      "nuevos_ui_1",      updateData)
+  
+  ########################## Individuos Nuevos #############################
+  callModule(mod_nuevos_server, "nuevos_ui_1", updateData)
 }

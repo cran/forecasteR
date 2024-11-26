@@ -8,12 +8,14 @@
 #' @import htmlwidgets
 #' @import shinycustomloader
 #' @import shinydashboardPlus
+#' @importFrom stats stl
 #' @importFrom colourpicker colourInput
 #' @importFrom DT tableHeader formatStyle
 #' @importFrom utils read.table write.csv
+#' @importFrom forecast meanf naive snaive nnetar auto.arima
 #' @importFrom shinyjs useShinyjs show hide addClass removeClass runjs
 #' @importFrom shinydashboard dashboardBody menuItem menuSubItem sidebarMenu tabBox tabItem tabItems infoBox
-#' 
+#'
 #' @noRd
 app_ui <- function(request) {
   tagList(
@@ -44,21 +46,21 @@ app_ui <- function(request) {
             icon = icon("table-list"),
             menuSubItem(labelInput("norm"), "norm", icon = icon("chart-simple")),
             menuSubItem(labelInput("t_c"),  "t_c",  icon = icon("arrow-up-right-dots")),
-            menuSubItem(labelInput("desc"), "desc", icon = icon("water")),
+            menuSubItem(labelInput("desc"), "descom", icon = icon("water")),
             menuSubItem(labelInput("peri"), "peri", icon = icon("road"))
           ),
           menuItem(
             labelInput("apre"), tabName = "parte2",
             icon = icon("table-list"),
             menuSubItem(labelInput("prom"), "prom", icon = icon("scale-balanced")),
-            menuSubItem(labelInput("naiv"), "naiv", icon = icon("arrow-right-long")),
-            menuSubItem(labelInput("snai"), "snai", icon = icon("arrow-trend-up")),
+            menuSubItem(labelInput("inge"), "inge", icon = icon("arrow-right-long")),
+            menuSubItem(labelInput("eing"), "eing", icon = icon("arrow-trend-up")),
             menuSubItem(labelInput("drif"), "drif", icon = icon("arrow-turn-up")),
-            menuSubItem(labelInput("desc"), "deco", icon = icon("water")),
-            menuSubItem(labelInput("reds"), "reds", icon = icon("brain")),
-            menuSubItem(labelInput("deep"), "deep", icon = icon("code-branch")),
-            menuSubItem("Holt-Winters", "h_w", icon = icon("chart-line")),
-            menuSubItem("ARIMA", "arim", icon = icon("chart-bar"))
+            menuSubItem(labelInput("desc"), "desc", icon = icon("water")),
+            #menuSubItem(labelInput("deep"), "deep", icon = icon("code-branch")),
+            menuSubItem("Holt-Winters", "holt", icon = icon("chart-line")),
+            menuSubItem("ARIMA", "arim", icon = icon("chart-bar")),
+            menuSubItem(labelInput("reds"), "reds", icon = icon("brain"))
           ),
           menuItem(labelInput("comp"), tabName = "comp", icon = icon("eye")),
           menuItem(labelInput("news"), tabName = "news", icon = icon("wand-magic-sparkles")),
@@ -93,37 +95,21 @@ app_ui <- function(request) {
           tabItem(tabName = "t_c",  mod_t_c_ui("t_c_ui_1")),
           
           # Descomposición
-          tabItem(tabName = "desc",  mod_descom_ui("descom_ui_1")),
+          tabItem(tabName = "descom",  mod_descom_ui("descom_ui_1")),
           
           # Periodograma
           tabItem(tabName = "peri",  mod_periodograma_ui("periodograma_ui_1")),
           
-          # Promedio
-          tabItem(tabName = "prom",  mod_promedio_ui("promedio_ui_1")),
-          
-          # Ingenuo
-          tabItem(tabName = "naiv",  mod_ingenuo_ui("ingenuo_ui_1")),
-          
-          # Estacional Ingenuo
-          tabItem(tabName = "snai",  mod_e_ingenuo_ui("e_ingenuo_ui_1")),
-          
-          # Desvío
-          tabItem(tabName = "drif",  mod_desvio_ui("desvio_ui_1")),
-          
-          # Modelo de Descomposición
-          tabItem(tabName = "deco",  mod_m_descom_ui("m_descom_ui_1")),
-          
-          # Redes
-          tabItem(tabName = "reds",  mod_redes_ui("redes_ui_1")),
-          
-          # Deep Learning
-          tabItem(tabName = "deep",  mod_deep_ui("deep_ui_1")),
-          
-          # Holt-Winters
-          tabItem(tabName = "h_w",   mod_holtwinters_ui("holtwinters_ui_1")),
-          
-          # ARIMA
-          tabItem(tabName = "arim",  mod_arima_ui("arima_ui_1")),
+          # Modelado
+          tabItem(tabName = "prom", mod_train_test_ui("tt_prom_ui", "prom")),
+          tabItem(tabName = "inge", mod_train_test_ui("tt_inge_ui", "inge")),
+          tabItem(tabName = "eing", mod_train_test_ui("tt_eing_ui", "eing")),
+          tabItem(tabName = "drif", mod_train_test_ui("tt_drif_ui", "drif")),
+          tabItem(tabName = "desc", mod_train_test_ui("tt_desc_ui", "desc")),
+          #tabItem(tabName = "deep", mod_train_test_ui("tt_deep_ui", "deep")),
+          tabItem(tabName = "holt", mod_train_test_ui("tt_holt_ui", "holt")),
+          tabItem(tabName = "arim", mod_train_test_ui("tt_arim_ui", "arim")),
+          tabItem(tabName = "reds", mod_train_test_ui("tt_reds_ui", "reds")),
           
           # Comparación de Datos
           tabItem(tabName = "comp",  mod_comparacion_ui("comparacion_ui_1")),

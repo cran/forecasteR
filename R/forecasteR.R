@@ -14,16 +14,16 @@
 #' \tabular{ll}{
 #' Package: \tab forecasteR\cr
 #' Type: \tab Package\cr
-#' Version: \tab 2.0.2\cr
-#' Date: \tab 2023-06-19\cr
+#' Version: \tab 3.0.2\cr
+#' Date: \tab 2024-11-25\cr
 #' License: \tab GPL (>=2)\cr
 #' }
 #' @keywords package
-#' @docType package
+"_PACKAGE"
 
 NULL
 utils::globalVariables(c(
   "n", "z", "vars", "for", "Lag", "ACF", "tail", "ts.union", "fecha",
   "duration", "runjs", "ts", "head", "auto.arima", "valor", "name", "linf",
-  "lsup", "x", "w", "y", "noms", "colors", "table_m"
+  "lsup", "x", "w", "y", "noms", "colors", "table_m", "formula"
 ))
